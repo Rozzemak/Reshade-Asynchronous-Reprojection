@@ -10,17 +10,17 @@ namespace fw {
 inline std::int64_t qpc_now() { LARGE_INTEGER v; QueryPerformanceCounter(&v); return v.QuadPart; }
 
 constexpr std::uint32_t kMagic = 0x46574152;  // 'FWAR'
-constexpr std::uint32_t kVersion = 43;
+constexpr std::uint32_t kVersion = 44;
 constexpr int kSlots = 4;
 
 // Streamline buffer kinds we capture. Values are our own; tags are classified by BufferType + format.
 // kScene: the upscaler's output (games without Streamline): the scene before post-processing and HUD.
 // kGen0..2: the game's frame generation (DLSS / FSR), the images it generated between the previous frame
 // and this one, in order (SlotMeta::generated).
-enum Tex : int { kBackbuffer = 0, kHudless, kUi, kDepth, kMotion, kScene, kGen0, kGen1, kGen2, kTexCount };
+enum Tex : int { kBackbuffer = 0, kHudless, kUi, kDepth, kMotion, kScene, kGen0, kGen1, kGen2, kUiAlpha, kTexCount };
 constexpr int kMaxGenerated = 3;
 inline const char* tex_name(int t) {
-    static const char* n[] = {"backbuffer", "hudless", "ui", "depth", "motion", "scene", "gen0", "gen1", "gen2"};
+    static const char* n[] = {"backbuffer", "hudless", "ui", "depth", "motion", "scene", "gen0", "gen1", "gen2", "ui alpha"};
     return t >= 0 && t < kTexCount ? n[t] : "?";
 }
 
